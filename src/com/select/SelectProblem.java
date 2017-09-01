@@ -59,28 +59,38 @@ public class SelectProblem {
         try {
             File file = new File("firstlist.txt");
             File file2 = new File("secondlist.txt");
-            Scanner input1 = new Scanner(file);
-            Scanner input2 = new Scanner(file2);
+            Scanner input1;
+            Scanner input2;
 
-            Random random = new Random();
-            int number = random.nextInt(maxNumber);
-            System.out.println("随机出的序号为"+number);
+            boolean flag = false;  //生成随机序号成功的标识位
+            while(!flag){
+                input1 = new Scanner(file);
+                input2 = new Scanner(file2);
+                Random random = new Random();
+                int number = random.nextInt(maxNumber);
+                System.out.println("随机出的序号为" + number);
 
-            while(input1.hasNext()){
-                int number1 = input1.nextInt();
-                if(number1 == number){
-                    System.out.println("选择的序号在列表一中出现");
+                while (input1.hasNext()) {
+                    int number1 = input1.nextInt();
+                    if (number1 == number) {
+                        System.out.println("选择的序号在列表一中出现");
+                    }
                 }
-            }
-            while(input2.hasNext()){
-                int number2 = input2.nextInt();
-                if(number2 == number){
-                    System.out.println("选择的序号在列表二中出现");
-                }
-            }
 
-            input1.close();
-            input2.close();
+                boolean index = false;
+                while (input2.hasNext()) {
+                    int number2 = input2.nextInt();
+                    if (number2 == number) {
+                        index = true;
+                        System.out.println("选择的序号在列表二中出现,请重新选择");
+                    }
+                }
+
+                flag = !index;
+
+                input1.close();
+                input2.close();
+            }
         }
         catch (Exception ex){
 
