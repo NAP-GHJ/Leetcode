@@ -1,25 +1,31 @@
 package com.leetcode.basic;
 
 public class TreeUtils {
-    public TreeNode treeBuild(){
-        int []array = new int []{0,1,3};
+    public static TreeNode treeBuild(){
+        int []array = new int []{0,1,3,4,5,6};
         int maxIndex = array.length - 1;
-        TreeNode root;
-        for(int i = 0; i < array.length; i++){
-            root = new TreeNode(array[i]);
 
+        TreeNode[] graph = new TreeNode[array.length];
+        for(int i = 0; i < array.length; i++){
+            if(array[i] != -1)
+                graph[i] = new TreeNode(array[i]);
+            else graph[i] = null;
+            if(i%2 == 1) graph[(i-1)/2].left = graph[i];
+            else graph[(i-1)/2].right = graph[i];
         }
-        return null;
+
+        return graph[0];
     }
 
-    public void treePrint(TreeNode root){
+    public static void treePrint(TreeNode root){
         if(root == null) return;
-        System.out.print(root.val);
-        System.out.print("----");
+        System.out.print(root.val+" ");
         treePrint(root.left);
-        System.out.print("|");
-        System.out.print("|");
-        System.out.print("----");
         treePrint(root.right);
+    }
+
+    public static void main(String [] args){
+        TreeNode root = TreeUtils.treeBuild();
+        new Class107().levelOrderBottom(root);
     }
 }
